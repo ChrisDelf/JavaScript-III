@@ -179,8 +179,6 @@ this.defend = vaillianAttributes.defend;
 villain.prototype = Object.create(Humanoid.prototype);
 
 villain.prototype.frontStab = function(character, damage) {
-
-
   character.healthPoints = character.healthPoints - damage;
  return ( this.name + " front stabs  " + character.name + " for " + damage + " damage ");
 
@@ -195,7 +193,18 @@ function Hero (attributes) {
 //- the hero abilities
 Hero.prototype = Object.create(Humanoid.prototype);
 
-Hero.prototype.heroicStab = function ()  {
+Hero.prototype.heroicStab = function (character, damage)
+{
+  character.healthPoints = character.healthPoints - damage
+  return ( this.name + " Heroically stabs with a devastating blow " + character.name + " for " + damage + " damage ");
+
+
+
+}
+Hero.prototype.flex = function (character, heal)
+{
+  character.healthPoints = character.healthPoints + heal
+  return ( this.name + " Heroically flexes and heals  " + character.name + " for " + heal + "  health  ");
 
 
 
@@ -237,6 +246,10 @@ Hero.prototype.heroicStab = function ()  {
 
 console.log(weeb.frontStab(knight, 5));
 console.log(knight.healthLeft (knight.healthPoints) );
+console.log(knight.flex(knight, 20))
+console.log(knight.healthLeft (knight.healthPoints) );
 console.log(weeb.frontStab(knight, 5));
 console.log(knight.healthLeft (knight.healthPoints) );
+console.log(knight.heroicStab(weeb, 100));
+console.log(weeb.healthLeft (weeb.healthPoints) );
 
