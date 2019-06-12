@@ -81,13 +81,25 @@ Humanoid.prototype.greet = function() {
 
 
 };
+Humanoid.prototype.healthLeft = function(health) {
 
-new Humanoid({
-  name: 'Dan'
-});
+  if (health <= 0 ) {
+   return ( this.name + ' has been killed ')
+  }
+  else {
+
+
+    return ( this.name + ' has  ' + this.healthPoints + ' left ')
+
+
+
+  }
+};
+
+
+
 
 // Test you work by un-commenting these 3 objects and the list of console logs below:
-
 
   const mage = new Humanoid({
     createdAt: new Date(),
@@ -153,6 +165,78 @@ new Humanoid({
 
 // Stretch task:
 // * Create Villain and Hero constructor functions that inherit from the Humanoid constructor function.
-// * Give the Hero and Villains different methods that could be used to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
+// * Give the Hero and Villains different methods that could be used
+// to remove health points from objects which could result in destruction if health gets to 0 or drops below 0;
 // * Create two new objects, one a villain and one a hero and fight it out with methods!
+
+//--- The villain creator
+function villain (vaillianAttributes) {
+Humanoid.call(this, vaillianAttributes);
+this.defend = vaillianAttributes.defend;
+
+}
+//-- The villain actions
+villain.prototype = Object.create(Humanoid.prototype);
+
+villain.prototype.frontStab = function(character, damage) {
+
+
+  character.healthPoints = character.healthPoints - damage;
+ return ( this.name + " front stabs  " + character.name + " for " + damage + " damage ");
+
+};
+
+
+//- the hero creator-----
+function Hero (attributes) {
+  Humanoid.call (this, attributes)
+
+}
+//- the hero abilities
+Hero.prototype = Object.create(Humanoid.prototype);
+
+Hero.prototype.heroicStab = function ()  {
+
+
+
+}
+
+
+  const weeb = new villain({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 20,
+    name: "Mc Stabb'in ",
+    team: 'Very Bad',
+    weapons: [
+      'Katana',
+    ],
+    language: 'Common Tongue',
+  });
+
+ const knight = new Hero({
+    createdAt: new Date(),
+    dimensions: {
+      length: 4,
+      width: 2,
+      height: 4,
+    },
+    healthPoints: 10,
+    name: " Mr StrongGoodPerson ",
+    team: 'Very Not Bad',
+    weapons: [
+      'The Most Versatile of weapons',
+    ],
+    language: 'Common Tongue',
+  });
+
+
+console.log(weeb.frontStab(knight, 5));
+console.log(knight.healthLeft (knight.healthPoints) );
+console.log(weeb.frontStab(knight, 5));
+console.log(knight.healthLeft (knight.healthPoints) );
 
